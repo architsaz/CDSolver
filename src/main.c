@@ -209,16 +209,16 @@ int main()
 
     // int Tn = 4;
     // double Tvalues[] = {4, 1, 1, 3, 1, 1, 2, 1, 1, 2};
-    // int Tcolumns[] =   {0, 1, 0, 1, 2, 1, 2, 3,  2, 3};
+    // int Tcolumns[] = {0, 1, 0, 1, 2, 1, 2, 3, 2, 3};
     // int Trow_ptr[] = {0, 2, 5, 8, 10};
-    // double Tb[] = {6,10,12,11};
+    // double Tb[] = {6, 10, 12, 11};
     // int Tnnz = 10;
 
     // int Tn = 5;
     // double Tvalues[] = {4, 1, 1, 3, 1, 1, 2, 1, 1, 3, 1, 1, 2};
-    // int Tcolumns[] =   {0, 1, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4};
+    // int Tcolumns[] = {0, 1, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4};
     // int Trow_ptr[] = {0, 2, 5, 8, 11, 13};
-    // double Tb[] = {6,10,12,20,14};
+    // double Tb[] = {6, 10, 12, 20, 14};
     // int Tnnz = 13;
 
     int Tn = 6;
