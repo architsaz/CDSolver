@@ -48,8 +48,8 @@ int main()
     clock_t start_time, end_time;
     double cpu_time_used;
     // mesh
-    int grid_width = 3;
-    int grid_height = 3;
+    int grid_width = 50;
+    int grid_height = 50;
     int nelem = grid_height * grid_width;
     // int npoin = 25;
     int nrpoin = 4;
@@ -221,49 +221,50 @@ int main()
     // double Tb[] = {6, 10, 12, 20, 14};
     // int Tnnz = 13;
 
-    int Tn = 6;
-    double Tvalues[] = {6, 2, 2, 5, 2, 2, 4, 1, 1, 4, 2, 2, 5, 3, 3, 6};
-    int Tcolumns[] = {0, 1, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5};
-    int Trow_ptr[] = {0, 2, 5, 8, 11, 14, 16};
-    double Tb[] = {8, 9, 7, 7, 10, 9};
-    int Tnnz = 16;
-
-    CRSMatrix A;
-    A.n = Tn;
-    A.nnz = Tnnz;
-    A.row_ptr = Trow_ptr;
-    A.col_index = Tcolumns;
-    A.values = Tvalues;
+    // int Tn = 6;
+    // double Tvalues[] = {6, 2, 2, 5, 2, 2, 4, 1, 1, 4, 2, 2, 5, 3, 3, 6};
+    // int Tcolumns[] = {0, 1, 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5};
+    // int Trow_ptr[] = {0, 2, 5, 8, 11, 14, 16};
+    // double Tb[] = {8, 9, 7, 7, 10, 9};
+    // int Tnnz = 16;
 
     // CRSMatrix A;
-    // A.n = nelem;
-    // A.nnz = nnz;
-    // A.row_ptr = row_ptr;
-    // A.col_index = col_ind;
-    // A.values = val;
+    // A.n = Tn;
+    // A.nnz = Tnnz;
+    // A.row_ptr = Trow_ptr;
+    // A.col_index = Tcolumns;
+    // A.values = Tvalues;
+
+    CRSMatrix A;
+    A.n = nelem;
+    A.nnz = nnz;
+    A.row_ptr = row_ptr;
+    A.col_index = col_ind;
+    A.values = val;
 
     // unknown vector
     double *u = (double *)calloc((size_t)A.n, sizeof(double));
 
     // Solve using Cholesky Decomposition
     start_time = clock();
-    solve_cholesky(&A, Tb, u);
+    solve_cholesky(&A, RHS, u);
     end_time = clock();
     cpu_time_used = (double)(end_time - start_time) / CLOCKS_PER_SEC;
     printf("! Cholesky Solver execution time : %.2f seconds\n", cpu_time_used);
 
-    // Output solution
-    printf("Solution u:\n");
-    for (int i = 0; i < A.n; i++)
-        printf("%f \n", u[i]);
+    // // Output solution
+    // printf("Solution u:\n");
+    // for (int i = 0; i < A.n; i++)
+    //     printf("%f \n", u[i]);
 
     // Output solution
-    //  printf("Solution u:\n");
-    //  for (int i = 0; i < grid_height; i++){
-    //      for (int j = 0; j < grid_width; j++)
-    //      printf("%f ", u[grid_height*i+j]);
-    //      printf("\n");
-    //  }
+    printf("Solution u:\n");
+    for (int i = 0; i < grid_height; i++)
+    {
+        for (int j = 0; j < grid_width; j++)
+            printf("%f ", u[grid_height * i + j]);
+        printf("\n");
+    }
 
     free(val);
     free(col_ind);
