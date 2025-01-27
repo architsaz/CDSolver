@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include "CGSolver.h"
-#include "CRSmatfuncs.h"
 #include "CDSolver.h"
 
 void generate_esure(int grid_width, int grid_height, int *esure)
@@ -48,8 +46,8 @@ int main()
     clock_t start_time, end_time;
     double cpu_time_used;
     // mesh
-    int grid_width = 50;
-    int grid_height = 50;
+    int grid_width = 10;
+    int grid_height = 10;
     int nelem = grid_height * grid_width;
     // int npoin = 25;
     int nrpoin = 4;
@@ -189,16 +187,16 @@ int main()
     }
     printf("\n");
 #endif
-    // Check the Positive Difinte conditions for a symetric off-diagonal sparce matrix
-    if (isPositiveDefinite(nelem, val, col_ind, row_ptr))
-    {
-        printf("The matrix is positive definite.\n");
-    }
-    else
-    {
-        fprintf(stderr, "The Coefficient matrix is not positive definite.\n");
-        // return 1;
-    }
+    // // Check the Positive Difinte conditions for a symetric off-diagonal sparce matrix
+    // if (isPositiveDefinite(nelem, val, col_ind, row_ptr))
+    // {
+    //     printf("The matrix is positive definite.\n");
+    // }
+    // else
+    // {
+    //     fprintf(stderr, "The Coefficient matrix is not positive definite.\n");
+    //     // return 1;
+    // }
     // Structure matrix A (Coefficient matrix) in CSR format
     // int Tn = 3;
     // double Tvalues[] = {4, 1, 1, 1, 3, 1, 2};
@@ -247,7 +245,8 @@ int main()
 
     // Solve using Cholesky Decomposition
     start_time = clock();
-    solve_cholesky(&A, RHS, u);
+    //solve_cholesky(&A, RHS, u);
+    solve_cholesky_wlds(&A, RHS, u);
     end_time = clock();
     cpu_time_used = (double)(end_time - start_time) / CLOCKS_PER_SEC;
     printf("! Cholesky Solver execution time : %.2f seconds\n", cpu_time_used);
@@ -258,13 +257,13 @@ int main()
     //     printf("%f \n", u[i]);
 
     // Output solution
-    printf("Solution u:\n");
-    for (int i = 0; i < grid_height; i++)
-    {
-        for (int j = 0; j < grid_width; j++)
-            printf("%f ", u[grid_height * i + j]);
-        printf("\n");
-    }
+    // printf("Solution u:\n");
+    // for (int i = 0; i < grid_height; i++)
+    // {
+    //     for (int j = 0; j < grid_width; j++)
+    //         printf("%f ", u[grid_height * i + j]);
+    //     printf("\n");
+    // }
 
     free(val);
     free(col_ind);
